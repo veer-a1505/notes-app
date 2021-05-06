@@ -18,8 +18,8 @@ const userSchema = new Schema({
     required: [true, 'please provide password'],
   },
   accountCreatedAt: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: Date,
   },
 })
 

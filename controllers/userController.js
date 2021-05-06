@@ -17,6 +17,8 @@ export const createUser = async (req, res, next) => {
       },
     })
   }
+
+  next()
 }
 
 export const loginUser = async (req, res, next) => {
@@ -49,5 +51,7 @@ export const loginUser = async (req, res, next) => {
         message: 'Successfully Logged In..!',
       },
     })
-  } catch (error) {}
+  } catch (error) {
+    return next()
+  }
 }
