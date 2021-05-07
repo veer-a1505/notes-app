@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import morgan from 'morgan'
 import userRouter from './routes/userRoutes.js'
+import noteRoutes from './routes/noteRoutes.js'
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.get('/', (req, res, next) => {
 })
 
 app.use('/api/users', userRouter)
+app.use('/api/notes', noteRoutes)
 
 //DB connection
 const dbConnection = async () => {
