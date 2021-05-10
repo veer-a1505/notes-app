@@ -1,4 +1,5 @@
 import User from '../models/userModel.js'
+import * as auth from './authToken.js'
 
 export const createUser = async (req, res, next) => {
   try {
@@ -56,10 +57,18 @@ export const loginUser = async (req, res, next) => {
     })
   }
 
+  const accessToken = auth.generateToken(user._id)
+
+  res.cookie('jwt', accessToken, {
+    maxAge: '120000',
+    secure: true,
+  })
+
   res.status(200).json({
     status: 'success',
     data: {
       user,
+      accessToken,
       message: 'Successfully Logged In..!',
     },
   })
