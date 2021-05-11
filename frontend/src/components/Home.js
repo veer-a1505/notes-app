@@ -1,12 +1,12 @@
 import React from 'react'
+import Content from './Content'
+import Header from './Header'
 
 const Home = () => {
   return (
     <div>
-      <header className='header'>Header</header>
-      <section className='navbar'>Navbar</section>
-      <main className='main'>Main</main>
-      <section className='footer'>footer</section>
+      <Header />
+      <Content />
     </div>
   )
 }

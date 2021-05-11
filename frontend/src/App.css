@@ -79,7 +79,8 @@ form button:hover {
   opacity: 1;
 }
 
-.form-container .signup-link {
+.form-container .signup-link,
+.signin-link {
   display: flex;
   justify-content: center;
   text-transform: capitalize;
@@ -88,31 +89,67 @@ form button:hover {
 
 .signup-link h4:hover {
   cursor: pointer;
+  border-bottom: 1px solid;
 }
+
+.signin-link {
+  column-gap: 0.5em;
+}
+
+.signin-link h4:hover {
+  cursor: pointer;
+  border-bottom: 1px solid;
+}
+
 /* Dashboard */
-.header {
-  border: 2px solid black;
+
+/* Header */
+
+header {
+  display: flex;
+  flex-direction: row;
   width: 100%;
   height: 10vh;
+  border: 2px solid;
+}
+
+header .header-title {
+  width: 40%;
+
+  display: flex;
+  margin: 1em;
+  align-items: center;
+  justify-content: center;
+}
+
+header .header-user {
+  width: 60%;
+  margin: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-end;
+}
+
+.header-user h3 {
+  margin: 1.5em;
+  padding: 0.5em;
+  width: 20%;
   text-align: center;
 }
 
-.navbar {
-  width: 100%;
-  border: 2px solid black;
-  text-align: center;
+.header-user button {
+  margin: 1.5em;
+  padding: 0.5em;
 }
 
-.footer {
-  width: 100%;
-  text-align: center;
-  height: 10vh;
-  border: 2px solid black;
-}
+/* CONTENT */
 
-.main {
-  width: 100%;
-  height: 80vh;
+.content {
+  max-width: 700px;
+  border: 1px solid;
+  margin: 1em auto;
+  height: 90vh;
   text-align: center;
-  border: 2px solid black;
 }
