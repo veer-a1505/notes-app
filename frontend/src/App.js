@@ -1,11 +1,14 @@
 import './App.css'
+import Home from './components/Home'
+import Signin from './components/Signin'
+import Signup from './components/Signup'
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1>Hello world</h1>
-      </header>
+    <div>
+      {/* <Signin /> */}
+      {/* <Signup /> */}
+      <Home />
     </div>
   )
 }
