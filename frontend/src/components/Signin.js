@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Signin = () => {
+  const [candidateData, setCandidateData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = (event) => {
+    setCandidateData({
+      ...candidateData,
+      [event.target.name]: event.target.value,
+    })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(candidateData)
+    setCandidateData({
+      email: '',
+      password: '',
+    })
+  }
+
   return (
     <div className='form-container'>
       <div className='form-heading'>
@@ -9,20 +30,26 @@ const Signin = () => {
         <p>Enter your credentials to acccess your account</p>
       </div>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='input-container'>
-          <i class='far fa-envelope icon'> </i>
+          <i className='far fa-envelope icon'> </i>
           <input
             type='email'
+            name='email'
+            value={candidateData.email}
+            onChange={handleChange}
             className='input-field'
             placeholder='Enter your email'
           />
         </div>
 
         <div className='input-container'>
-          <i class='fas fa-lock icon'></i>
+          <i className='fas fa-lock icon'></i>
           <input
             type='password'
+            name='password'
+            value={candidateData.password}
+            onChange={handleChange}
             className='input-field'
             placeholder='Enter your password'
           />
