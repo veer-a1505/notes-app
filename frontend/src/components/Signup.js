@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { userRegister } from './../actions/userActions'
 
 const Signup = () => {
   const [candidateData, setCandidateData] = useState({
@@ -7,6 +9,11 @@ const Signup = () => {
     email: '',
     password: '',
   })
+
+  const dispatch = useDispatch()
+
+  const user = useSelector((state) => state.register)
+  console.log(user)
 
   const handleChange = (event) => {
     setCandidateData({
@@ -17,7 +24,7 @@ const Signup = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(candidateData)
+    dispatch(userRegister(candidateData))
     setCandidateData({
       username: '',
       email: '',

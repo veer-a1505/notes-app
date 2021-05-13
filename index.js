@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 import morgan from 'morgan'
+import cors from 'cors'
 import userRouter from './routes/userRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
 
@@ -10,6 +11,7 @@ const app = express()
 
 // Middlewares
 app.use(morgan('dev'))
+app.use(cors())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

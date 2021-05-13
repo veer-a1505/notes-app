@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { userRegisterReducer } from './reducers/userReducer'
+import { rootReducer } from './rootReducer.js'
 
-const globalStore = createStore(userRegisterReducer, applyMiddleware(thunk))
+const globalStore = createStore(rootReducer, applyMiddleware(thunk))
 
 export default globalStore
