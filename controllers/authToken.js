@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import User from '../models/userModel.js'
+import { AppError } from '../utils/error.js'
 dotenv.config()
 
 export const generateToken = (id) => {
@@ -25,12 +26,7 @@ export const verifyToken = async (req, res, next) => {
     }
 
     if (!token) {
-      return res.status(400).json({
-        status: 'error',
-        data: {
-          message: "You're not logged In please login and get access token.",
-        },
-      })
+      throw new AppError(400, 'please login and get access token.')
     }
 
     const decodedUser = await jwt.verify(token, process.env.JWT_SECRET)
@@ -39,24 +35,17 @@ export const verifyToken = async (req, res, next) => {
     const user = await User.findById({ _id: decodedUser.user_id })
 
     if (!user) {
-      return res.status(401).json({
-        status: 'error',
-        data: {
-          message:
-            'User does not exist to this token, please login and get access token',
-        },
-      })
+      throw new AppError(
+        401,
+        'User does not exist to this token, please login and get access token'
+      )
     }
 
     req.currentUser = user
 
     next()
   } catch (error) {
-    res.status(401).json({
-      status: 'error',
-      data: {
-        message: error.message,
-      },
-    })
+    console.table(error)
+    next(error)
   }
 }

@@ -15,11 +15,14 @@ export const userRegister = ({ username, email, password }) => {
         type: USER_REGISTER_REQUEST,
       })
 
-      const data = await axios.post('http://localhost:9090/api/users/signup', {
-        username,
-        email,
-        password,
-      })
+      const { data } = await axios.post(
+        'http://localhost:9090/api/users/signup',
+        {
+          username,
+          email,
+          password,
+        }
+      )
 
       dispatch({
         type: USER_REGISTER_SUCCESS,
@@ -28,7 +31,10 @@ export const userRegister = ({ username, email, password }) => {
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
-        payload: error.message,
+        payload:
+          error.response && error.response.data
+            ? error.response.data.message
+            : error.message,
       })
     }
   }
@@ -41,12 +47,13 @@ export const userLogin = ({ email, password }) => {
         type: USER_LOGIN_REQUEST,
       })
 
-      const data = await axios.post('http://localhost:9090/api/users/signin', {
-        email,
-        password,
-      })
-
-      console.log(data)
+      const { data } = await axios.post(
+        'http://localhost:9090/api/users/signin',
+        {
+          email,
+          password,
+        }
+      )
 
       dispatch({
         type: USER_LOGIN_SUCCESS,
@@ -55,7 +62,10 @@ export const userLogin = ({ email, password }) => {
     } catch (error) {
       dispatch({
         type: USER_LOGIN_FAIL,
-        payload: error.message,
+        payload:
+          error.response && error.response.data
+            ? error.response.data.message
+            : error.message,
       })
     }
   }

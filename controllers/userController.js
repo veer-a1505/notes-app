@@ -1,21 +1,22 @@
 import User from '../models/userModel.js'
+import { AppError } from '../utils/error.js'
 import * as auth from './authToken.js'
 
 export const createUser = async (req, res, next) => {
   try {
-    const { email } = req.body
+    const { username, email, password } = req.body
 
-    console.log(req.body)
+    if (!username || !email || !password) {
+      throw new AppError(
+        400,
+        'Please provide required username & email and password fields'
+      )
+    }
 
     const user = await User.findOne({ email })
 
     if (user) {
-      return res.status(409).json({
-        status: 'error',
-        data: {
-          message: 'User already exists',
-        },
-      })
+      throw new AppError(409, 'User with email id already exists')
     }
 
     const newUser = await User.create(req.body)
@@ -27,53 +28,42 @@ export const createUser = async (req, res, next) => {
       },
     })
   } catch (error) {
-    return res.status(400).json({
-      success: 'error',
-      data: {
-        message: error.message,
-      },
-    })
+    next(error)
   }
 }
 
 export const loginUser = async (req, res, next) => {
-  const { email, password } = req.body
+  try {
+    const { email, password } = req.body
 
-  if (!email || !password) {
-    return res.status(400).json({
-      status: 'error',
+    if (!email || !password) {
+      throw new AppError(400, 'Please provide email and password')
+    }
+
+    const user = await User.findOne({ email })
+
+    if (!user || !(await user.comparePassword(password, user.password))) {
+      throw new AppError(401, 'Incorrect email or password')
+    }
+
+    const accessToken = auth.generateToken(user._id)
+
+    res.cookie('jwt', accessToken, {
+      maxAge: '120000',
+      httpOnly: true,
+    })
+
+    res.status(200).json({
+      status: 'success',
       data: {
-        message: 'Please provide email and password',
+        user,
+        accessToken,
+        message: 'Successfully Logged In..!',
       },
     })
+  } catch (error) {
+    next(error)
   }
-
-  const user = await User.findOne({ email })
-
-  if (!user || !(await user.comparePassword(password, user.password))) {
-    return res.status(401).json({
-      status: 'error',
-      data: {
-        message: 'Incorrect email or password',
-      },
-    })
-  }
-
-  const accessToken = auth.generateToken(user._id)
-
-  res.cookie('jwt', accessToken, {
-    maxAge: '120000',
-    secure: true,
-  })
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      user,
-      accessToken,
-      message: 'Successfully Logged In..!',
-    },
-  })
 }
 
 export const logoutUser = async (req, res, next) => {

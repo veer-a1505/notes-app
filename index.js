@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 import userRouter from './routes/userRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
+import { errorHandler } from './utils/error.js'
 
 const app = express()
 
@@ -23,6 +24,10 @@ app.get('/', (req, res, next) => {
 
 app.use('/api/users', userRouter)
 app.use('/api/notes', noteRoutes)
+
+app.use((err, req, res, next) => {
+  errorHandler(err, res)
+})
 
 //DB connection
 const dbConnection = async () => {

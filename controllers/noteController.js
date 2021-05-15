@@ -1,9 +1,18 @@
 import mongoose from 'mongoose'
 import User from '../models/userModel.js'
+import { AppError } from '../utils/error.js'
 import Note from './../models/notesModel.js'
 
 export const createNote = async (req, res, next) => {
   try {
+    const { title, text, lable } = req.body
+
+    if (!title || !text || !lable) {
+      throw new AppError(
+        400,
+        'Please fill required title , text and lable fields'
+      )
+    }
     const notes = await Note.create(req.body)
 
     res.status(201).json({
@@ -13,12 +22,7 @@ export const createNote = async (req, res, next) => {
       },
     })
   } catch (error) {
-    return res.status(400).json({
-      status: 'error',
-      data: {
-        message: error.message,
-      },
-    })
+    next(error)
   }
 }
 
@@ -59,12 +63,7 @@ export const getNotesByID = async (req, res, next) => {
     const note = await Note.findById(req.params)
 
     if (!note) {
-      return res.status(404).json({
-        status: 'error',
-        data: {
-          message: `Notes not found with this ${req.params._id}`,
-        },
-      })
+      throw new AppError(404, ' Notes not found')
     }
 
     res.status(200).json({
@@ -74,12 +73,7 @@ export const getNotesByID = async (req, res, next) => {
       },
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      data: {
-        message: error.message,
-      },
-    })
+    next(error)
   }
 }
 
@@ -90,12 +84,7 @@ export const updateNoteByID = async (req, res, next) => {
     })
 
     if (!updatedNotes) {
-      return res.status(404).json({
-        status: 'error',
-        data: {
-          message: `Notes not found with this ${req.params._id}`,
-        },
-      })
+      throw new AppError(404, `Notes not found with this ${req.params._id}`)
     }
 
     res.status(200).json({
@@ -105,12 +94,7 @@ export const updateNoteByID = async (req, res, next) => {
       },
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      data: {
-        message: error.message,
-      },
-    })
+    next(error)
   }
 }
 
@@ -119,12 +103,7 @@ export const deleteNoteByID = async (req, res, next) => {
     const notes = await Note.findOneAndDelete(req.params)
 
     if (!notes) {
-      return res.status(404).json({
-        status: 'error',
-        data: {
-          message: `Notes not found with this ${req.params._id}`,
-        },
-      })
+      throw new AppError(404, `Notes not found with this ${req.params._id}`)
     }
 
     res.status(200).json({
@@ -134,11 +113,6 @@ export const deleteNoteByID = async (req, res, next) => {
       },
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      data: {
-        message: error.message,
-      },
-    })
+    next(error)
   }
 }

@@ -4,18 +4,15 @@ const noteSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, 'please provide title'],
       unique: true,
       trim: true,
     },
     text: {
       type: String,
       trim: true,
-      required: [true, 'Please provide text'],
     },
     lable: {
       type: String,
-      required: [true, 'please provide lable'],
     },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
