@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../actions/userActions'
 
-const Signin = () => {
+const Signin = (props) => {
   const [candidateData, setCandidateData] = useState({
     email: '',
     password: '',
@@ -11,9 +12,17 @@ const Signin = () => {
 
   const user = useSelector((state) => state.login)
 
+  console.log(user)
+
   const { loading, userInfos, error } = user
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (userInfos) {
+      props.history.push('/home')
+    }
+  }, [userInfos, props.history])
 
   const handleChange = (event) => {
     setCandidateData({

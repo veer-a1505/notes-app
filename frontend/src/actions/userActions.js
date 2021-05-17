@@ -8,6 +8,8 @@ import {
 } from '../contants/userConstant'
 import axios from 'axios'
 
+axios.defaults.withCredentials = true
+
 export const userRegister = ({ username, email, password }) => {
   return async (dispatch) => {
     try {
@@ -59,6 +61,8 @@ export const userLogin = ({ email, password }) => {
         type: USER_LOGIN_SUCCESS,
         payload: data,
       })
+
+      localStorage.setItem('user_Info', JSON.stringify(data))
     } catch (error) {
       dispatch({
         type: USER_LOGIN_FAIL,

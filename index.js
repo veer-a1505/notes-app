@@ -7,12 +7,19 @@ import cors from 'cors'
 import userRouter from './routes/userRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
 import { errorHandler } from './utils/error.js'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
 // Middlewares
+app.use(cookieParser())
 app.use(morgan('dev'))
-app.use(cors())
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+  })
+)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

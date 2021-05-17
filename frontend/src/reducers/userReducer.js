@@ -7,6 +7,12 @@ import {
   USER_REGISTER_SUCCESS,
 } from '../contants/userConstant'
 
+const intialState = {
+  loading: false,
+  userInfos: {},
+  error: '',
+}
+
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -23,11 +29,24 @@ export const userRegisterReducer = (state = {}, action) => {
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loading: true }
+      return {
+        ...state,
+        error: '',
+        loading: true,
+      }
     case USER_LOGIN_SUCCESS:
-      return { loading: false, userInfos: action.payload }
+      return {
+        ...state,
+        loading: false,
+        userInfos: action.payload,
+        error: '',
+      }
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload }
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
     default:
       return state
   }

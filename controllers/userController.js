@@ -40,26 +40,29 @@ export const loginUser = async (req, res, next) => {
       throw new AppError(400, 'Please provide email and password')
     }
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }).select(
+      '-_id -accountCreatedAt -__v'
+    )
 
     if (!user || !(await user.comparePassword(password, user.password))) {
       throw new AppError(401, 'Incorrect email or password')
     }
 
+    //hide password from response
+    user.password = undefined
+
     const accessToken = auth.generateToken(user._id)
 
     res.cookie('jwt', accessToken, {
       maxAge: '120000',
-      httpOnly: true,
     })
 
     res.status(200).json({
       status: 'success',
-      data: {
-        user,
-        accessToken,
-        message: 'Successfully Logged In..!',
-      },
+      isLoggedIn: true,
+      user,
+      accessToken,
+      message: 'Successfully Logged In..!',
     })
   } catch (error) {
     next(error)
