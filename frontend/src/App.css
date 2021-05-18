@@ -196,7 +196,7 @@ a {
   color: #fff;
   outline: none;
   border: none;
-  animation: animate 5s ease-in 0s forwards;
+  animation: animate 3s ease-in 0s forwards;
 }
 
 .success {

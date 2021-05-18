@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { userRegister } from './../actions/userActions'
 
-const Signup = () => {
+const Signup = (props) => {
   const [candidateData, setCandidateData] = useState({
     username: '',
     email: '',
@@ -14,7 +14,7 @@ const Signup = () => {
 
   const user = useSelector((state) => state.register)
 
-  const { loading, userInfos, error } = user
+  const { loading, userInfos, error, newUser } = user
 
   const handleChange = (event) => {
     setCandidateData({
@@ -33,10 +33,20 @@ const Signup = () => {
     })
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (newUser) {
+        props.history.push('/')
+      }
+    }, 3000)
+  }, [newUser, props.history])
+
   return (
     <>
       {error ? <span className='error'>{error}</span> : null}
-      {userInfos ? <span className='success'>Login success</span> : null}
+      {newUser ? (
+        <span className='success'>Successfully Registered</span>
+      ) : null}
       <div className='form-container'>
         <div className='form-heading'>
           <h3>Welome!!!</h3>

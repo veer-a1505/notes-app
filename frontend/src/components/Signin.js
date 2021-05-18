@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
+import Cookies from 'js-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../actions/userActions'
 
@@ -10,19 +10,21 @@ const Signin = (props) => {
     password: '',
   })
 
+  const userCookie = Cookies.get('jwt')
+
   const user = useSelector((state) => state.login)
 
-  console.log(user)
-
-  const { loading, userInfos, error } = user
+  const { loading, userInfos, error, loggedIn } = user
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (userInfos) {
-      props.history.push('/home')
-    }
-  }, [userInfos, props.history])
+    setTimeout(() => {
+      if (userCookie) {
+        props.history.push('/home')
+      }
+    }, 1000)
+  }, [userCookie, props.history])
 
   const handleChange = (event) => {
     setCandidateData({
@@ -43,7 +45,7 @@ const Signin = (props) => {
   return (
     <>
       {error ? <span className='error'>{error}</span> : null}
-      {userInfos ? <span className='success'>Login success</span> : null}
+      {loggedIn ? <span className='success'>Login success</span> : null}
 
       <div className='form-container'>
         <div className='form-heading'>

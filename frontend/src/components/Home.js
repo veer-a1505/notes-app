@@ -4,9 +4,6 @@ import Header from './Header'
 import { useSelector } from 'react-redux'
 
 const Home = () => {
-  const user = useSelector((state) => state.login)
-
-  console.log(user)
   return (
     <div>
       <Header />

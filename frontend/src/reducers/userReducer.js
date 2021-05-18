@@ -9,6 +9,7 @@ import {
 
 const intialState = {
   loading: false,
+  loggedIn: false,
   userInfos: {},
   error: '',
 }
@@ -16,11 +17,24 @@ const intialState = {
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
-      return { loading: true }
+      return {
+        ...state,
+        loading: true,
+      }
     case USER_REGISTER_SUCCESS:
-      return { loading: false, userInfos: action.payload }
+      return {
+        ...state,
+        loading: false,
+        newUser: true,
+        userInfos: action.payload,
+      }
     case USER_REGISTER_FAIL:
-      return { loading: false, error: action.payload }
+      return {
+        ...state,
+        loading: false,
+        newUser: false,
+        error: action.payload,
+      }
     default:
       return state
   }
@@ -38,6 +52,7 @@ export const userLoginReducer = (state = {}, action) => {
       return {
         ...state,
         loading: false,
+        loggedIn: true,
         userInfos: action.payload,
         error: '',
       }

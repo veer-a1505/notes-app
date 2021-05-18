@@ -54,12 +54,11 @@ export const loginUser = async (req, res, next) => {
     const accessToken = auth.generateToken(user._id)
 
     res.cookie('jwt', accessToken, {
-      maxAge: '120000',
+      maxAge: 1800000,
     })
 
     res.status(200).json({
       status: 'success',
-      isLoggedIn: true,
       user,
       accessToken,
       message: 'Successfully Logged In..!',
