@@ -1,14 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-const Header = () => {
+import { withRouter } from 'react-router-dom'
+import { userLogout } from '../actions/userActions'
+
+const Header = (props) => {
+  const userLogin = useSelector((state) => state.login)
+
   const {
     userInfos: { user },
-  } = useSelector((state) => state.login)
+  } = userLogin
+
+  const dispatch = useDispatch()
 
   const handleLogout = (event) => {
     event.preventDefault()
-    console.log('event')
+    dispatch(userLogout())
   }
 
   return (
@@ -25,4 +32,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default withRouter(Header)

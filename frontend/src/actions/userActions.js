@@ -2,11 +2,16 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
+  USER_LOGOUT_FAIL,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../contants/userConstant'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 axios.defaults.withCredentials = true
 
@@ -73,4 +78,10 @@ export const userLogin = ({ email, password }) => {
       })
     }
   }
+}
+
+export const userLogout = () => (dispatch) => {
+  localStorage.removeItem('user_Info')
+  Cookies.remove('jwt')
+  dispatch({ type: USER_LOGOUT })
 }

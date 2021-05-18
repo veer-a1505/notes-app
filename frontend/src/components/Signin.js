@@ -81,8 +81,9 @@ const Signin = (props) => {
         </form>
 
         <div className='signup-link'>
+          <p>don't have an account yet ?</p>
           <Link to='/signup'>
-            <h4>Sign up</h4>
+            <h4> Sign up</h4>
           </Link>
         </div>
       </div>
