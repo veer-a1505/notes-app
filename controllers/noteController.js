@@ -17,9 +17,7 @@ export const createNote = async (req, res, next) => {
 
     res.status(201).json({
       status: 'success',
-      data: {
-        notes,
-      },
+      notes,
     })
   } catch (error) {
     next(error)
@@ -29,6 +27,10 @@ export const createNote = async (req, res, next) => {
 export const getNotesByUserID = async (req, res, next) => {
   try {
     const id = req.params._id
+
+    console.log(id)
+
+    console.log(`Id from server : ${id}`)
 
     const userNotes = await Note.find({ postedBy: id })
 
@@ -43,9 +45,7 @@ export const getNotesByUserID = async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      data: {
-        userNotes,
-      },
+      userNotes,
     })
   } catch (error) {
     res.status(400).json({

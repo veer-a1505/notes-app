@@ -40,9 +40,7 @@ export const loginUser = async (req, res, next) => {
       throw new AppError(400, 'Please provide email and password')
     }
 
-    const user = await User.findOne({ email }).select(
-      '-_id -accountCreatedAt -__v'
-    )
+    const user = await User.findOne({ email }).select(' -accountCreatedAt -__v')
 
     if (!user || !(await user.comparePassword(password, user.password))) {
       throw new AppError(401, 'Incorrect email or password')

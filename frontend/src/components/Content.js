@@ -1,11 +1,15 @@
 import React from 'react'
+import { withRouter } from 'react-router'
+import Notes from './Notes'
+import NotesForm from './NotesForm'
 
-const Content = () => {
+const Content = (props) => {
   return (
     <div className='content'>
-      <h3>Content Goes Here</h3>
+      <NotesForm />
+      <Notes />
     </div>
   )
 }
 
-export default Content
+export default withRouter(Content)

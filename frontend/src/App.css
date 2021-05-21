@@ -148,7 +148,7 @@ header .header-user {
 /* CONTENT */
 
 .content {
-  max-width: 700px;
+  max-width: 860px;
   border: 1px solid;
   margin: 1em auto;
   height: 90vh;
@@ -215,4 +215,56 @@ a {
   outline: none;
   border: none;
   animation: animate 3s ease-in 0s forwards;
+}
+
+/* notes */
+
+.notes-form {
+  margin: auto;
+  row-gap: 1em;
+  padding: 2em;
+  border: 1px solid #333;
+  width: 100%;
+}
+
+.notes-form input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #333;
+  height: 3em;
+  padding: 0.5em;
+  outline: none;
+}
+
+.notes-form textarea {
+  resize: none;
+  width: 100%;
+  height: auto;
+  border: none;
+  border-bottom: 2px solid #333;
+  padding: 0.5em;
+  outline: none;
+}
+
+.notes-form input:focus {
+  border-bottom: 2px solid #4f93de;
+}
+.notes-form textarea:focus {
+  border-bottom: 2px solid #4f93de;
+}
+
+.notes {
+  border: 1px solid #333;
+}
+
+button {
+  width: auto;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+.notes {
+  margin: 2em auto;
+  padding: 1em;
 }

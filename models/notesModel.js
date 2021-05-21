@@ -4,7 +4,6 @@ const noteSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      unique: true,
       trim: true,
     },
     text: {
