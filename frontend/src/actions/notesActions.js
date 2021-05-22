@@ -1,6 +1,9 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import {
+  CREATE_NOTE_FAIL,
+  CREATE_NOTE_REQUEST,
+  CREATE_NOTE_SUCCESS,
   GET_ALL_NOTES_FAIL,
   GET_ALL_NOTES_REQUEST,
   GET_ALL_NOTES_SUCCESS,
@@ -28,7 +31,6 @@ export const getNotes = (id) => async (dispatch) => {
       payload: data.userNotes,
     })
   } catch (error) {
-    console.log(error.response)
     dispatch({
       type: GET_ALL_NOTES_FAIL,
       payload:
@@ -38,3 +40,42 @@ export const getNotes = (id) => async (dispatch) => {
     })
   }
 }
+
+export const createNote =
+  ({ title, text, lable }) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: CREATE_NOTE_REQUEST,
+      })
+
+      const token = Cookies.get('jwt')
+
+      const { data } = await axios.post(
+        `http://localhost:9090/api/notes/addnote`,
+        {
+          title,
+          text,
+          lable,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      dispatch({
+        type: CREATE_NOTE_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CREATE_NOTE_FAIL,
+        payload:
+          error.response && error.response.data
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }

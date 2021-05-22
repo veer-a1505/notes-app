@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { createNote } from './../actions/notesActions'
 const NotesForm = () => {
   const [note, setNote] = useState({
     title: '',
     text: '',
     lable: '',
   })
+
+  const createdNote = useSelector((state) => state.createNote)
+
+  const { loading, notes, error } = createdNote
+
+  console.log(notes)
+
+  const dispatch = useDispatch()
 
   const handleChange = (event) => {
     setNote({
@@ -16,8 +25,8 @@ const NotesForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('done')
     console.log(note)
+    dispatch(createNote(note))
     setNote({
       ...note,
       text: '',
@@ -27,6 +36,7 @@ const NotesForm = () => {
   }
   return (
     <div>
+      {error ? <span className='error'>{error}</span> : null}
       <form className='notes-form' onSubmit={handleSubmit}>
         <input
           type='text'

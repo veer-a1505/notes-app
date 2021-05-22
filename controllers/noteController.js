@@ -5,6 +5,7 @@ import Note from './../models/notesModel.js'
 
 export const createNote = async (req, res, next) => {
   try {
+    console.log(req.currentUser._id)
     const { title, text, lable } = req.body
 
     if (!title || !text || !lable) {
@@ -13,7 +14,12 @@ export const createNote = async (req, res, next) => {
         'Please fill required title , text and lable fields'
       )
     }
-    const notes = await Note.create(req.body)
+    const notes = await Note.create({
+      title,
+      text,
+      lable,
+      postedBy: req.currentUser._id,
+    })
 
     res.status(201).json({
       status: 'success',

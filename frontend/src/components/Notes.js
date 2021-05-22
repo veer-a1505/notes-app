@@ -8,6 +8,7 @@ const Notes = (props) => {
   const {
     userInfos: { user },
   } = userLogin
+
   const dispatch = useDispatch()
 
   const userNotes = useSelector((state) => state.notes)
@@ -16,7 +17,7 @@ const Notes = (props) => {
 
   useEffect(() => {
     dispatch(getNotes(user._id))
-  }, [])
+  }, [user])
 
   return (
     <div className='notes'>
