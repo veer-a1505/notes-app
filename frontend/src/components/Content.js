@@ -4,6 +4,7 @@ import Notes from './Notes'
 import NotesForm from './NotesForm'
 
 const Content = (props) => {
+  console.log(props.history)
   return (
     <div className='content'>
       <NotesForm />

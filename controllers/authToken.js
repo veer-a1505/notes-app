@@ -31,8 +31,6 @@ export const verifyToken = async (req, res, next) => {
 
     const decodedUser = await jwt.verify(token, process.env.JWT_SECRET)
 
-    console.log(decodedUser)
-
     // check user exist or not
     const user = await User.findById({ _id: decodedUser.user_id })
 

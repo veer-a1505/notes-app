@@ -14,7 +14,7 @@ const Signup = (props) => {
 
   const user = useSelector((state) => state.register)
 
-  const { loading, userInfos, error, newUser } = user
+  const { userInfos, error, newUser } = user
 
   const handleChange = (event) => {
     setCandidateData({

@@ -5,7 +5,6 @@ import Note from './../models/notesModel.js'
 
 export const createNote = async (req, res, next) => {
   try {
-    console.log(req.currentUser._id)
     const { title, text, lable } = req.body
 
     if (!title || !text || !lable) {
@@ -21,9 +20,10 @@ export const createNote = async (req, res, next) => {
       postedBy: req.currentUser._id,
     })
 
+    const postedBy = notes.postedBy
     res.status(201).json({
       status: 'success',
-      notes,
+      postedBy,
     })
   } catch (error) {
     next(error)
@@ -33,10 +33,6 @@ export const createNote = async (req, res, next) => {
 export const getNotesByUserID = async (req, res, next) => {
   try {
     const id = req.params._id
-
-    console.log(id)
-
-    console.log(`Id from server : ${id}`)
 
     const userNotes = await Note.find({ postedBy: id })
 

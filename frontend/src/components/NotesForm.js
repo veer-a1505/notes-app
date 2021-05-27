@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createNote } from './../actions/notesActions'
+import { createNote, getNotes } from './../actions/notesActions'
 const NotesForm = () => {
-  const [note, setNote] = useState({
+  const [usernote, setUserNote] = useState({
     title: '',
     text: '',
     lable: '',
@@ -10,30 +10,34 @@ const NotesForm = () => {
 
   const createdNote = useSelector((state) => state.createNote)
 
-  const { loading, notes, error } = createdNote
-
-  console.log(notes)
+  const { loading, note, error } = createdNote
 
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
-    setNote({
-      ...note,
+    setUserNote({
+      ...usernote,
       [event.target.name]: event.target.value,
     })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(note)
-    dispatch(createNote(note))
-    setNote({
-      ...note,
+    dispatch(createNote(usernote))
+    setUserNote({
+      ...usernote,
       text: '',
       title: '',
       lable: '',
     })
   }
+
+  useEffect(() => {
+    if (note) {
+      dispatch(getNotes(note.postedBy))
+    }
+  }, [note])
+
   return (
     <div>
       {error ? <span className='error'>{error}</span> : null}
@@ -42,7 +46,7 @@ const NotesForm = () => {
           type='text'
           name='title'
           placeholder='Title'
-          value={note.title}
+          value={usernote.title}
           onChange={handleChange}
         />
         <textarea
@@ -50,14 +54,14 @@ const NotesForm = () => {
           cols='5'
           rows='5'
           placeholder='Text'
-          value={note.text}
+          value={usernote.text}
           onChange={handleChange}
         />
         <input
           type='text'
           name='lable'
           placeholder='Lable'
-          value={note.lable}
+          value={usernote.lable}
           onChange={handleChange}
         />
         <button type='submit'>Submit</button>

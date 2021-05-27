@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux'
-import { createNoteReducer, notesReducer } from './reducers/notesReducer'
+import {
+  createNoteReducer,
+  deleteNotesReducer,
+  notesReducer,
+} from './reducers/notesReducer'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer'
 
 export const rootReducer = combineReducers({
@@ -7,4 +11,5 @@ export const rootReducer = combineReducers({
   login: userLoginReducer,
   notes: notesReducer,
   createNote: createNoteReducer,
+  deleteNote: deleteNotesReducer,
 })

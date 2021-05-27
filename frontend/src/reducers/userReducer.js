@@ -3,20 +3,10 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
-  USER_LOGOUT_FAIL,
-  USER_LOGOUT_REQUEST,
-  USER_LOGOUT_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../contants/userConstant'
-
-const intialState = {
-  loading: false,
-  loggedIn: false,
-  userInfos: {},
-  error: '',
-}
 
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {

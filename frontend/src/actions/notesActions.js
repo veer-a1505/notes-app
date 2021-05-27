@@ -4,6 +4,9 @@ import {
   CREATE_NOTE_FAIL,
   CREATE_NOTE_REQUEST,
   CREATE_NOTE_SUCCESS,
+  DELETE_NOTE_FAIL,
+  DELETE_NOTE_REQUEST,
+  DELETE_NOTE_SUCCESS,
   GET_ALL_NOTES_FAIL,
   GET_ALL_NOTES_REQUEST,
   GET_ALL_NOTES_SUCCESS,
@@ -79,3 +82,38 @@ export const createNote =
       })
     }
   }
+
+export const deleteNotes = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: DELETE_NOTE_REQUEST,
+    })
+    const token = Cookies.get('jwt')
+
+    const { data } = await axios.delete(
+      `http://localhost:9090/api/notes/deleteNoteByID/${id}`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    if (data) {
+      console.log(data)
+    }
+
+    dispatch({
+      type: DELETE_NOTE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: DELETE_NOTE_FAIL,
+      payload:
+        error.response && error.response.data
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
