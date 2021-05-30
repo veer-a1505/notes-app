@@ -111,7 +111,6 @@ header {
   flex-direction: row;
   width: 100%;
   height: 10vh;
-  border: 2px solid;
 }
 
 header .header-title {
@@ -133,16 +132,17 @@ header .header-user {
   align-content: flex-end;
 }
 
-.header-user h3 {
-  margin: 1.5em;
-  padding: 0.5em;
-  width: 20%;
-  text-align: center;
-}
-
 .header-user button {
   margin: 1.5em;
+  width: 6em;
+  height: 2.5em;
+  background: #4f93de;
+  color: #f2f2f2;
   padding: 0.5em;
+}
+
+.header-user .theme i {
+  font-size: 100px;
 }
 
 /* CONTENT */
@@ -288,7 +288,7 @@ article p {
   margin: 0.4em auto;
   line-height: 1.5em;
   font-size: 1.3em;
-  padding: 0.5em auto;
+  padding: 0.4em;
   text-transform: lowercase;
 }
 
@@ -308,4 +308,28 @@ article .icons {
   justify-content: flex-end;
   font-size: 1.4em;
   color: #4f93de;
+}
+
+article p[contenteditable='true']:focus {
+  border: 0.1em dotted #4f93de;
+  border-radius: 5px;
+  outline: none;
+}
+
+/*  media queries */
+@media screen and (max-width: 480px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notes-form {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -7,6 +7,9 @@ import {
   DELETE_NOTE_FAIL,
   DELETE_NOTE_REQUEST,
   DELETE_NOTE_SUCCESS,
+  EDIT_NOTE_FAIL,
+  EDIT_NOTE_REQUEST,
+  EDIT_NOTE_SUCCESS,
   GET_ALL_NOTES_FAIL,
   GET_ALL_NOTES_REQUEST,
   GET_ALL_NOTES_SUCCESS,
@@ -110,6 +113,38 @@ export const deleteNotes = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_NOTE_FAIL,
+      payload:
+        error.response && error.response.data
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const editNotes = (id, note) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EDIT_NOTE_REQUEST,
+    })
+    const token = Cookies.get('jwt')
+
+    const { data } = await axios.patch(
+      `http://localhost:9090/api/notes/updateNoteByID/${id}`,
+      { id, note },
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    dispatch({
+      type: EDIT_NOTE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: EDIT_NOTE_FAIL,
       payload:
         error.response && error.response.data
           ? error.response.data.message

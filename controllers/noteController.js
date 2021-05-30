@@ -81,9 +81,17 @@ export const getNotesByID = async (req, res, next) => {
 
 export const updateNoteByID = async (req, res, next) => {
   try {
-    const updatedNotes = await Note.findByIdAndUpdate(req.params, req.body, {
-      new: true,
-    })
+    console.log(req.body)
+
+    const updatedNotes = await Note.findByIdAndUpdate(
+      req.body.id,
+      {
+        text: req.body.note,
+      },
+      {
+        new: true,
+      }
+    )
 
     if (!updatedNotes) {
       throw new AppError(404, `Notes not found with this ${req.params._id}`)

@@ -32,6 +32,9 @@ const NotesForm = () => {
     })
   }
 
+  if (error) {
+    setTimeout(() => window.location.reload(), 2000)
+  }
   useEffect(() => {
     if (note) {
       dispatch(getNotes(note.postedBy))

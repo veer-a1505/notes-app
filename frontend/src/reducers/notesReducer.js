@@ -5,6 +5,9 @@ import {
   DELETE_NOTE_FAIL,
   DELETE_NOTE_REQUEST,
   DELETE_NOTE_SUCCESS,
+  EDIT_NOTE_FAIL,
+  EDIT_NOTE_REQUEST,
+  EDIT_NOTE_SUCCESS,
   GET_ALL_NOTES_FAIL,
   GET_ALL_NOTES_REQUEST,
   GET_ALL_NOTES_SUCCESS,
@@ -92,6 +95,31 @@ export const deleteNotesReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
         message: '',
+      }
+
+    default:
+      return state
+  }
+}
+
+export const editNotesReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_NOTE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case EDIT_NOTE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        updatedNotes: action.payload,
+      }
+    case EDIT_NOTE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       }
 
     default:
