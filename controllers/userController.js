@@ -1,6 +1,8 @@
 import User from '../models/userModel.js'
 import { AppError } from '../utils/error.js'
 import * as auth from './authToken.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const createUser = async (req, res, next) => {
   try {
@@ -52,7 +54,7 @@ export const loginUser = async (req, res, next) => {
     const accessToken = auth.generateToken(user._id)
 
     res.cookie('jwt', accessToken, {
-      maxAge: 1800000,
+      maxAge: process.env.COOKIE_MAXAGE,
     })
 
     res.status(200).json({

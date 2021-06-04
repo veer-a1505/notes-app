@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+dotenv.config()
 import User from '../models/userModel.js'
 import { AppError } from '../utils/error.js'
-dotenv.config()
+
+console.log(process.env.JWT_EXPIRES)
 
 export const generateToken = (id) => {
   const token = jwt.sign(
@@ -10,7 +12,7 @@ export const generateToken = (id) => {
       user_id: id,
     },
     process.env.JWT_SECRET,
-    { expiresIn: '30m' }
+    { expiresIn: process.env.JWT_EXPIRES }
   )
   return token
 }
