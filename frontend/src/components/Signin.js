@@ -44,9 +44,8 @@ const Signin = (props) => {
 
   return (
     <>
-      {error ? <span className='error'>{error}</span> : null}
-      {loggedIn ? <span className='success'>Login success</span> : null}
-
+      {error && <span className='error'>{error}</span>}
+      {loggedIn && <span className='success'>Login success</span>}
       <div className='form-container'>
         <div className='form-heading'>
           <h3>Welome Back</h3>

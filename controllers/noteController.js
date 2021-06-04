@@ -81,8 +81,6 @@ export const getNotesByID = async (req, res, next) => {
 
 export const updateNoteByID = async (req, res, next) => {
   try {
-    console.log(req.body)
-
     const updatedNotes = await Note.findByIdAndUpdate(
       req.body.id,
       {

@@ -15,10 +15,11 @@ const Notes = (props) => {
 
   const userNotes = useSelector((state) => state.notes)
   const editedNotes = useSelector((state) => state.editNote)
+  const createdNote = useSelector((state) => state.createNote)
+
+  const { loading, note, error } = createdNote
 
   const { notes } = userNotes
-
-  console.log(editedNotes)
 
   const deleteNote = (id) => {
     dispatch(deleteNotes(id))
@@ -33,44 +34,55 @@ const Notes = (props) => {
   }, [user])
 
   const hanldeSave = (e, id) => {
-    console.log(id)
     if (e.target.textContent) {
       const note = e.target.textContent
       dispatch(editNotes(id, note))
     }
+
+    setTimeout(() => {
+      dispatch(getNotes(user._id))
+    }, 0)
   }
+
+  if (error) {
+    return <div className='load_notes'>Loading Notes...</div>
+  }
+
+  // <div className='notes_error'>
+  //   No notes here to see...! please add some notes.
+  // </div>
 
   return (
     <div className='notes'>
-      {notes ? (
-        notes.map((note) => {
-          const { _id, title, text, lable } = note
-          return (
-            <div key={_id}>
-              <article>
-                <div className='icons'>
-                  <i
-                    className='far fa-trash-alt'
-                    onClick={() => deleteNote(_id)}></i>
-                </div>
+      {loading && <div className='load_notes'>Loading Notes...</div>}
+      {notes
+        ? notes.map((note) => {
+            const { _id, title, text, lable } = note
 
-                <h2>{title}</h2>
+            return (
+              <div key={_id} className='item'>
+                <article>
+                  <div className='icons'>
+                    <i
+                      className='far fa-trash-alt'
+                      onClick={() => deleteNote(_id)}></i>
+                  </div>
 
-                <p
-                  contentEditable='true'
-                  suppressContentEditableWarning={true}
-                  onBlur={(e) => hanldeSave(e, _id)}>
-                  {text}
-                </p>
+                  <h2>{title}</h2>
 
-                <span>{lable}</span>
-              </article>
-            </div>
-          )
-        })
-      ) : (
-        <div>Some notes here</div>
-      )}
+                  <p
+                    contentEditable='true'
+                    suppressContentEditableWarning={true}
+                    onBlur={(e) => hanldeSave(e, _id)}>
+                    {text}
+                  </p>
+
+                  <span>{lable}</span>
+                </article>
+              </div>
+            )
+          })
+        : null}
     </div>
   )
 }

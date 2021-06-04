@@ -7,8 +7,6 @@ import { userLogout } from '../actions/userActions'
 const Header = (props) => {
   const userLogin = useSelector((state) => state.login)
 
-  const [theme, setTheme] = useState(true)
-
   const {
     userInfos: { user },
   } = userLogin
@@ -16,8 +14,12 @@ const Header = (props) => {
   const dispatch = useDispatch()
 
   const handleLogout = (event) => {
+    const result = window.confirm('Are you sure to logout')
     event.preventDefault()
-    dispatch(userLogout())
+
+    if (result) {
+      dispatch(userLogout())
+    }
   }
 
   return (
@@ -28,16 +30,10 @@ const Header = (props) => {
 
       <div className='header-user'>
         <div>
-          {theme ? (
-            <i className='fas fa-moon'></i>
-          ) : (
-            <i className='fas fa-sun'></i>
-          )}
+          <button type='button' onClick={handleLogout}>
+            Logout
+          </button>
         </div>
-
-        <button type='button' onClick={handleLogout}>
-          Logout
-        </button>
       </div>
     </header>
   )

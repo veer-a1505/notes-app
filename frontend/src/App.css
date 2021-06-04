@@ -1,3 +1,7 @@
+:root {
+  --blue-color: #4f93de;
+}
+
 body {
   background: #fafafa;
 }
@@ -39,7 +43,7 @@ form {
 
 .icon {
   padding: 0.9em;
-  color: #4f93de;
+  color: var(--blue-color);
   min-height: 1em;
   text-align: center;
 }
@@ -56,7 +60,7 @@ form button {
   width: 25%;
   height: 3em;
   text-align: center;
-  background: #4f93de;
+  background: var(--blue-color);
   color: white;
   outline: none;
   border: none;
@@ -72,7 +76,7 @@ input[type='email'] {
 }
 
 .input-field:focus {
-  border-bottom: 1px solid #4f93de;
+  border-bottom: 1px solid var(--blue-color);
 }
 
 form button:hover {
@@ -84,7 +88,7 @@ form button:hover {
   display: flex;
   justify-content: center;
   text-transform: capitalize;
-  color: #4f93de;
+  color: var(--blue-color);
 }
 
 .signup-link h4:hover {
@@ -136,13 +140,23 @@ header .header-user {
   margin: 1.5em;
   width: 6em;
   height: 2.5em;
-  background: #4f93de;
+  background: var(--blue-color);
   color: #f2f2f2;
   padding: 0.5em;
 }
 
-.header-user .theme i {
-  font-size: 100px;
+.header-user .profile-link {
+  margin: 1.5em;
+  width: 6em;
+  height: 1.5em;
+  padding: 0.5em;
+  text-align: center;
+  justify-content: center;
+}
+
+.profile-link:hover {
+  cursor: pointer;
+  border-bottom: var(--blue-color);
 }
 
 /* CONTENT */
@@ -151,12 +165,11 @@ header .header-user {
   display: grid;
   grid-template-columns: 30% auto;
   margin: 1em auto;
-  text-align: center;
 }
 
 a {
   text-decoration: none;
-  color: #4f93de;
+  color: var(--blue-color);
 }
 
 @keyframes animate {
@@ -177,7 +190,7 @@ a {
   }
 
   100% {
-    opacity: 0;
+    opacity: 1;
     visibility: hidden;
   }
 }
@@ -186,31 +199,31 @@ a {
   display: flex;
   flex-direction: column;
   text-transform: lowercase;
-  margin: 1em auto;
-  padding: 0.75em;
+  margin: 0.2em auto;
+  padding: 0.5em;
   max-width: 500px;
   border-radius: 0.5em;
   align-items: center;
   justify-content: center;
-  background: #f05945;
+  background: #ff8484;
   color: #fff;
   outline: none;
   border: none;
-  animation: animate 3s ease-in 0s forwards;
+  animation: animate 3s ease-in;
 }
 
 .success {
   display: flex;
   flex-direction: column;
   text-transform: lowercase;
-  margin: 1em auto;
-  padding: 0.75em;
+  margin: 0.2em auto;
+  padding: 0.5em;
   max-width: 500px;
   border-radius: 0.5em;
   align-items: center;
   justify-content: center;
   background: #29bb89;
-  color: #fff;
+  color: #000000;
   outline: none;
   border: none;
   animation: animate 3s ease-in 0s forwards;
@@ -219,9 +232,9 @@ a {
 /* notes */
 
 .notes-form {
-  margin: auto;
+  margin: 1.5em auto;
   row-gap: 1em;
-  padding: 2em;
+  padding: 1em;
   width: 100%;
 }
 
@@ -244,10 +257,10 @@ a {
 }
 
 .notes-form input:focus {
-  border-bottom: 2px solid #4f93de;
+  border-bottom: 2px solid var(--blue-color);
 }
 .notes-form textarea:focus {
-  border-bottom: 2px solid #4f93de;
+  border-bottom: 2px solid var(--blue-color);
 }
 
 button {
@@ -256,35 +269,60 @@ button {
   outline: none;
   border-radius: 4px;
 }
-
+/* repeat(auto-fit, minmax(300px, 1fr)) */
 .notes {
   margin: auto;
   padding: 1.5em;
   border-radius: 4px;
-  display: grid;
+  width: 100%;
   height: auto;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  display: grid;
   grid-gap: 1em;
+  grid-auto-flow: dense;
 }
 
-article {
+.notes_error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+}
+
+.load_notes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+}
+
+.item {
   margin: auto;
+  height: auto;
+  width: 100%;
+  height: 100%;
   padding: 1em;
   text-align: left;
   border: 1px solid #333;
   border-radius: 4px;
-  width: 100%;
-  height: 100%;
-  box-shadow: 2px 2px 1px #4f93de;
+  box-shadow: 2px 2px 1px var(--blue-color);
+  transition: all 0.2s ease-in-out;
 }
 
-article h2 {
+.item:hover {
+  transform: scale(1.03);
+}
+
+.item h2 {
   margin: 0.4em auto;
   padding: 0.5em auto;
   text-transform: uppercase;
 }
 
-article p {
+.item:hover {
+  cursor: pointer;
+}
+
+.item p {
   margin: 0.4em auto;
   line-height: 1.5em;
   font-size: 1.3em;
@@ -296,8 +334,9 @@ article span {
   margin: 0.5em auto;
   line-height: 1em;
   font-size: 1.5em;
-  color: #4f93de;
-  background: #f2f2f2;
+  color: var(--blue-color);
+  background-color: #f2f2f2;
+  display: inline-block;
   text-transform: lowercase;
 }
 
@@ -307,23 +346,61 @@ article .icons {
   gap: 0.5em;
   justify-content: flex-end;
   font-size: 1.4em;
-  color: #4f93de;
+  color: var(--blue-color);
 }
 
 article p[contenteditable='true']:focus {
-  border: 0.1em dotted #4f93de;
+  border: 0.1em dotted var(--blue-color);
+  overflow: auto;
+  max-height: 250px;
   border-radius: 5px;
   outline: none;
 }
 
+.notfound {
+  position: fixed;
+  text-transform: uppercase;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+
 /*  media queries */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
+  .form-container {
+    height: auto;
+    max-width: 400px;
+  }
+
+  form {
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .input-field {
+    width: 100%;
+    margin: auto;
+  }
+
+  .input-container {
+    display: flex;
+    width: 100%;
+  }
+
   .header {
     display: flex;
     flex-direction: column;
   }
 
   .content {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notes {
     display: flex;
     flex-direction: column;
   }
@@ -332,4 +409,23 @@ article p[contenteditable='true']:focus {
     display: flex;
     flex-direction: column;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0.7em;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-color);
 }

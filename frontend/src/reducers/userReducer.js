@@ -14,12 +14,14 @@ export const userRegisterReducer = (state = {}, action) => {
       return {
         ...state,
         loading: true,
+        error: '',
       }
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
         loading: false,
         newUser: true,
+        error: '',
         userInfos: action.payload,
       }
     case USER_REGISTER_FAIL:
@@ -39,16 +41,16 @@ export const userLoginReducer = (state = {}, action) => {
     case USER_LOGIN_REQUEST:
       return {
         ...state,
-        error: '',
         loading: true,
+        error: '',
       }
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
         loggedIn: true,
-        userInfos: action.payload,
         error: '',
+        userInfos: action.payload,
       }
     case USER_LOGIN_FAIL:
       return {

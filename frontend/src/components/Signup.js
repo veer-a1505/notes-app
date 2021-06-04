@@ -25,6 +25,7 @@ const Signup = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
     dispatch(userRegister(candidateData))
     setCandidateData({
       username: '',
