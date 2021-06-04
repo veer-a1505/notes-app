@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createNote, getNotes } from './../actions/notesActions'
+
 const NotesForm = () => {
   const [usernote, setUserNote] = useState({
     title: '',

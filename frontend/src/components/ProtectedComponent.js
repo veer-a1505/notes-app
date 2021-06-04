@@ -5,7 +5,6 @@ import { Redirect, Route } from 'react-router-dom'
 
 const ProtectedComponent = ({ component: Component, ...rest }) => {
   const { loggedIn } = useSelector((state) => state.login)
-
   const user = Cookies.get('jwt')
 
   return (

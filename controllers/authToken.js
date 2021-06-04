@@ -4,8 +4,6 @@ dotenv.config()
 import User from '../models/userModel.js'
 import { AppError } from '../utils/error.js'
 
-console.log(process.env.JWT_EXPIRES)
-
 export const generateToken = (id) => {
   const token = jwt.sign(
     {

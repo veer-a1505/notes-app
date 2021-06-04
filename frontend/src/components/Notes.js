@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteNotes, editNotes, getNotes } from '../actions/notesActions'
 
@@ -8,8 +8,6 @@ const Notes = (props) => {
   const {
     userInfos: { user },
   } = userLogin
-
-  const [editItem, setEditItem] = useState(false)
 
   const dispatch = useDispatch()
 

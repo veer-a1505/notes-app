@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import Notes from './Notes'
 import NotesForm from './NotesForm'
 
-const Content = (props) => {
+const Content = () => {
   return (
     <div className='content'>
       <NotesForm />
