@@ -19,14 +19,11 @@ export const userRegister = ({ username, email, password }) => {
         type: USER_REGISTER_REQUEST,
       })
 
-      const { data } = await axios.post(
-        'http://localhost:9090/api/users/signup',
-        {
-          username,
-          email,
-          password,
-        }
-      )
+      const { data } = await axios.post('/api/users/signup', {
+        username,
+        email,
+        password,
+      })
 
       dispatch({
         type: USER_REGISTER_SUCCESS,
@@ -51,13 +48,10 @@ export const userLogin = ({ email, password }) => {
         type: USER_LOGIN_REQUEST,
       })
 
-      const { data } = await axios.post(
-        'http://localhost:9090/api/users/signin',
-        {
-          email,
-          password,
-        }
-      )
+      const { data } = await axios.post('/api/users/signin', {
+        email,
+        password,
+      })
 
       dispatch({
         type: USER_LOGIN_SUCCESS,

@@ -1,4 +1,6 @@
 import express from 'express'
+import path from 'path'
+
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -51,6 +53,21 @@ const dbConnection = async () => {
 }
 
 dbConnection()
+
+console.log(process.cwd())
+// console.log(path.join(__dirname, '/frontend/build'))
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(process.cwd(), 'frontend/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(process.cwd(), 'frontend', 'build', 'index.html')
+  })
+} else {
+  app.get('/', (req, res) => {
+    res.send('Api running')
+  })
+}
 
 // Server is running
 const PORT = process.env.PORT || 5000

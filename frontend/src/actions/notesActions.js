@@ -23,14 +23,11 @@ export const getNotes = (id) => async (dispatch) => {
 
     const token = Cookies.get('jwt')
 
-    const { data } = await axios.get(
-      `http://localhost:9090/api/notes/getNotesByUserID/${id}`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    const { data } = await axios.get(`/api/notes/getNotesByUserID/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
 
     dispatch({
       type: GET_ALL_NOTES_SUCCESS,
@@ -58,7 +55,7 @@ export const createNote =
       const token = Cookies.get('jwt')
 
       const { data } = await axios.post(
-        `http://localhost:9090/api/notes/addnote`,
+        `/api/notes/addnote`,
         {
           title,
           text,
@@ -93,14 +90,11 @@ export const deleteNotes = (id) => async (dispatch) => {
     })
     const token = Cookies.get('jwt')
 
-    const { data } = await axios.delete(
-      `http://localhost:9090/api/notes/deleteNoteByID/${id}`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    const { data } = await axios.delete(`/api/notes/deleteNoteByID/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
 
     if (data) {
       console.log(data)
@@ -129,7 +123,7 @@ export const editNotes = (id, note) => async (dispatch) => {
     const token = Cookies.get('jwt')
 
     const { data } = await axios.patch(
-      `http://localhost:9090/api/notes/updateNoteByID/${id}`,
+      `/api/notes/updateNoteByID/${id}`,
       { id, note },
       {
         headers: {
