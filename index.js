@@ -1,10 +1,11 @@
 import express from 'express'
-import path from 'path'
-
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 import morgan from 'morgan'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import path from 'path'
 import cors from 'cors'
 import userRouter from './routes/userRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
@@ -12,6 +13,9 @@ import { errorHandler } from './utils/error.js'
 import cookieParser from 'cookie-parser'
 
 const app = express()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // Middlewares
 app.use(cookieParser())
@@ -54,18 +58,11 @@ const dbConnection = async () => {
 
 dbConnection()
 
-console.log(process.cwd())
-// console.log(path.join(__dirname, '/frontend/build'))
-
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(process.cwd(), 'frontend/build'))
+  app.use(express.static('frontend/build'))
 
   app.get('*', (req, res) => {
-    res.sendFile(process.cwd(), 'frontend', 'build', 'index.html')
-  })
-} else {
-  app.get('/', (req, res) => {
-    res.send('Api running')
+    res.sendFile(path.resolve(__dirname), 'frontend', 'build', 'index.html')
   })
 }
 
