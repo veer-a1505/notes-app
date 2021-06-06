@@ -1,4 +1,4 @@
-import User from '../models/userModel.js.js.js.js'
+import User from '../models/userModel.js'
 import { AppError } from '../utils/error.js'
 import * as auth from './authToken.js'
 import dotenv from 'dotenv'
