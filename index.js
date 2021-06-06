@@ -34,14 +34,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 //routes
-app.get('/', (req, res, next) => {
-  res
-    .status(200)
-    .json({
-      message: `Server is listening for your request...${req.get('host')}`,
-    })
-})
-
 app.use('/api/users', userRouter)
 app.use('/api/notes', noteRoutes)
 
@@ -50,11 +42,13 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 
+console.log(process.env.NODE_ENV)
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'))
+  app.use(express.static(path.join('client/build')))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname), 'client', 'build', 'index.html')
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
 
