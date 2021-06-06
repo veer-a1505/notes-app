@@ -1,5 +1,3 @@
-import mongoose from 'mongoose'
-import User from '../models/userModel.js.js.js.js'
 import { AppError } from '../utils/error.js'
 import Note from '../models/notesModel.js'
 
