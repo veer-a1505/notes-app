@@ -35,7 +35,11 @@ app.use(express.urlencoded({ extended: true }))
 
 //routes
 app.get('/', (req, res, next) => {
-  res.status(200).json({ message: 'Server is listening for your request...' })
+  res
+    .status(200)
+    .json({
+      message: `Server is listening for your request...${req.get('host')}`,
+    })
 })
 
 app.use('/api/users', userRouter)
